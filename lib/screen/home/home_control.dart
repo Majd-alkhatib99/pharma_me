@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
-import 'package:pharma_me/core/util/cache_serves.dart';
-import '../../core/widgets/custom_text.dart';
+import 'widgets/home_app_bar.dart';
+import 'widgets/home_bottom_nav_bar.dart';
 
 class HomeControl extends StatelessWidget {
   const HomeControl({super.key});
@@ -16,35 +16,18 @@ class HomeControl extends StatelessWidget {
       builder: (context, state) {
         MainCubit cubit = MainCubit.get(context);
         return Scaffold(
-          appBar: AppBar(
-            title: CustomText(
-                text: cubit.appBarTitle[cubit.bottomNavBarIndex],
-                alignment: Alignment.topCenter,
-                isBold: true,
-                fontSize: 20),
-            actions: [
-              IconButton(onPressed: (){
-                CacheServes.removeData(key: 'token');
-              }, icon: Icon(Icons.ac_unit))
-            ],
-            centerTitle: true,
-          ),
+          appBar: HomeAppBar(title: cubit.appBarTitle[cubit.bottomNavBarIndex]) as PreferredSizeWidget,
           body: cubit.homeLayout[cubit.bottomNavBarIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: cubit.bottomNavBarIndex,
-            onTap: (int index) => cubit.changeBottomNavBarIndex(index),
-            elevation: 0.0,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.warehouse), label: 'Warehouse'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.view_cozy), label: 'Categories'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: 'Orders'),
-            ],
-          ),
+          bottomNavigationBar: HomeBottomNavBar(cubit: cubit),
         );
       },
     );
   }
+  // PreferredSizeWidget HomeAppBar
 }
+
+
+
+
+
+
