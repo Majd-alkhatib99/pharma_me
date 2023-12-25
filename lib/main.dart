@@ -7,7 +7,7 @@ import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
 import 'package:pharma_me/core/util/api_serves.dart';
 import 'package:pharma_me/core/util/app_routes.dart';
 import 'package:pharma_me/core/util/cache_serves.dart';
-import 'package:pharma_me/core/util/color_data.dart';
+
 import 'core/manager/blocObserver.dart';
 
 void main() async {
