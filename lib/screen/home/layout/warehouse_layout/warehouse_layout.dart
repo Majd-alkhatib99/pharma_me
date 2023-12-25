@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
+import 'package:pharma_me/screen/home/layout/warehouse_layout/widgets/list_view_builder.dart';
+
+class WarehouseLayout extends StatelessWidget {
+  const WarehouseLayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<MainCubit, MainState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          MainCubit cubit = MainCubit.get(context);
+          return state is LoadingGetWarehouseState
+              ? const Center(child: CircularProgressIndicator(),)
+              : ListViewBuilder(cubit: cubit,);
+        },
+    );
+  }
+}
+
+
+
+
