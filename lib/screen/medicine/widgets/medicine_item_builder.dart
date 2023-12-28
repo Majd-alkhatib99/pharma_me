@@ -42,7 +42,7 @@ class MedicineItemBuilder extends StatelessWidget {
                     backgroundColor: ColorData.black.withOpacity(0.2),
                     child: Image(
                       image: AssetImage(
-                        'assets/images/${medicineModel.category!.image}',
+                        medicineModel.category!.image!=null?'assets/images/${medicineModel.category!.image}':'assets/images/categories/injections.jpg',
                       ),
                       width: MediaQuery.of(context).size.width * .060,
                     )),

@@ -45,20 +45,24 @@ class MedicineListItemsBuilder extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 12,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: .0000002,
-                childAspectRatio: 1 / .55,
-                children: List.generate(
-                    cubit.medicineModelList.length,
-                        (index) => MedicineItemBuilder(
-                      medicineModel: cubit.medicineModelList[index],
-                    )),
-              ),
-            )
+                    flex: 12,
+                    child: state is LoadingGetCatMedicineFromWarehouse || state is LoadingGetMedicineFromWarehouse
+                        ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                        :GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: .0000002,
+                      childAspectRatio: 1 / .55,
+                      children: List.generate(
+                          cubit.medicineModelList.length,
+                          (index) => MedicineItemBuilder(
+                                medicineModel: cubit.medicineModelList[index],
+                              )),
+                    ),
+                  )
           ],
         );
       },

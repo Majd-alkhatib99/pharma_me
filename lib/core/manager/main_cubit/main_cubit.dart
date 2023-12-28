@@ -85,12 +85,15 @@ class MainCubit extends Cubit<MainState> {
   void changeCatIndex({required int catIndex,required int warehouseId}) {
     this.catIndex = catIndex;
     if(catIndex==0){
+      emit(ChangeCatIndexState());
       getMedicineFromWarehouse(warehouseId);
+
     }
     else{
+      emit(ChangeCatIndexState());
       getCatMedicineFromWarehouse(catIndex: catIndex,warehouseId: warehouseId);
     }
-    emit(ChangeCatIndexState());
+
   }
   void getCatMedicineFromWarehouse({required int warehouseId,required int catIndex}) {
     medicineModelList = [];

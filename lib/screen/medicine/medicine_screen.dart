@@ -7,12 +7,14 @@ import 'widgets/medicine_list_items_builder.dart';
 
 class MedicineScreen extends StatelessWidget {
   const MedicineScreen(
-      {super.key, required this.appBarTitle, required this.medicineModelList,required this.warehouseId});
+      {super.key,
+      required this.appBarTitle,
+      required this.medicineModelList,
+      required this.warehouseId});
 
   final String appBarTitle;
   final List<MedicineModel> medicineModelList;
   final int warehouseId;
-
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class MedicineScreen extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        MainCubit cubit =MainCubit.get(context);
+        MainCubit cubit = MainCubit.get(context);
         return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -33,15 +35,21 @@ class MedicineScreen extends StatelessWidget {
                     },
                     child: const Icon(Icons.arrow_back_ios),
                   ),
-                  const SizedBox(width: 5,),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   CustomText(
-                      text: '$appBarTitle Warehouse', isBold: true, fontSize: 18,),
+                    text: '$appBarTitle Warehouse',
+                    isBold: true,
+                    fontSize: 18,
+                  ),
                 ],
               ),
             ),
             body: state is LoadingGetMedicineFromWarehouse
                 ? const Center(
-                    child: CircularProgressIndicator(),)
+                    child: CircularProgressIndicator(),
+                  )
                 : medicineModelList.isEmpty
                     ? const Center(
                         child: CustomText(
@@ -59,7 +67,3 @@ class MedicineScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
