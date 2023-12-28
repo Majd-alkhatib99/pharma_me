@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         theme: ThemeData(
-
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: Colors.transparent,
@@ -51,11 +50,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PharmaMe extends StatelessWidget {
-  const PharmaMe({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}

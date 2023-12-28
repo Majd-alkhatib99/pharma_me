@@ -16,15 +16,16 @@ class MedicineItemBuilder extends StatelessWidget {
         onTap: () => showMedicineDetailsDialog(context),
         child: Container(
           decoration: BoxDecoration(
+            border: Border.all(color: ColorData.midPurple2,width: 1),
             boxShadow: const [
               BoxShadow(
-                color: Colors.black,
+                color: ColorData.midPurple2,
                 spreadRadius: .5,
                 blurRadius: 5,
                 offset: Offset(0, .2), // changes position of shadow
               ),
             ],
-            color: ColorData.midPurple2,
+            color: ColorData.white,
             borderRadius: BorderRadius.circular(16.0),
           ),
           width: MediaQuery.of(context).size.width * .40,
@@ -38,7 +39,7 @@ class MedicineItemBuilder extends StatelessWidget {
               children: [
                 CircleAvatar(
                     radius: MediaQuery.of(context).size.width * .045,
-                    backgroundColor: ColorData.white,
+                    backgroundColor: ColorData.black.withOpacity(0.2),
                     child: Image(
                       image: AssetImage(
                         'assets/images/${medicineModel.category!.image}',
@@ -51,7 +52,7 @@ class MedicineItemBuilder extends StatelessWidget {
                 CustomText(
                   text: medicineModel.scName!,
                   alignment: Alignment.center,
-                  color: ColorData.white,
+                  color: ColorData.black,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -61,10 +62,10 @@ class MedicineItemBuilder extends StatelessWidget {
                   children: [
                     CustomText(
                         text: medicineModel.category!.catName!,
-                        color: ColorData.white.withOpacity(0.6)),
+                        color: ColorData.black.withOpacity(0.6)),
                     CustomText(
                         text: medicineModel.quantity.toString(),
-                        color: ColorData.white.withOpacity(0.6)),
+                        color: ColorData.black.withOpacity(0.6)),
                   ],
                 )
               ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
-import 'widgets/home_app_bar.dart';
+import 'package:pharma_me/core/util/cache_serves.dart';
+import 'package:pharma_me/core/widgets/custom_text.dart';
 import 'widgets/home_bottom_nav_bar.dart';
 
 class HomeControl extends StatelessWidget {
@@ -16,14 +17,26 @@ class HomeControl extends StatelessWidget {
       builder: (context, state) {
         MainCubit cubit = MainCubit.get(context);
         return Scaffold(
-          appBar: HomeAppBar(title: cubit.appBarTitle[cubit.bottomNavBarIndex]) as PreferredSizeWidget,
+          appBar: AppBar(
+            title: CustomText(
+                text: cubit.appBarTitle[cubit.bottomNavBarIndex],
+                alignment: Alignment.topCenter,
+                isBold: true,
+                fontSize: 20),
+            actions: [
+              IconButton(onPressed: (){
+                CacheServes.removeData(key: 'token');
+              }, icon: const Icon(Icons.ac_unit))
+            ],
+            centerTitle: true,
+          ),
           body: cubit.homeLayout[cubit.bottomNavBarIndex],
           bottomNavigationBar: HomeBottomNavBar(cubit: cubit),
         );
       },
     );
   }
-  // PreferredSizeWidget HomeAppBar
+
 }
 
 

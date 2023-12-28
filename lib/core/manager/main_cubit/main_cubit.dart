@@ -52,21 +52,59 @@ class MainCubit extends Cubit<MainState> {
     });
   }
 
-  List<MedicineModel> medicineModelList=[];
+
+
+  List<MedicineModel> medicineModelList = [];
+
   void getMedicineFromWarehouse(int id) {
-    medicineModelList=[];
+    medicineModelList = [];
     emit(LoadingGetMedicineFromWarehouse());
 
-    ApiServes.get(url: '${EndPoint.getMedicineFromWarehouse}/${id+1}',token: token)
+    ApiServes.get(
+            url: '${EndPoint.getMedicineFromWarehouse}/${id + 1}', token: token)
         .then((response) {
-          for(Map<String,dynamic> items in response.data){
-            medicineModelList.add(MedicineModel.fromJson(items));
-          }
-          emit(SuccessGetMedicineFromWarehouse());
-    })
-        .catchError((error) {
-          emit(ErrorGetMedicineFromWarehouse(error.toString()));
+      for (Map<String, dynamic> items in response.data) {
+        medicineModelList.add(MedicineModel.fromJson(items));
+      }
+      emit(SuccessGetMedicineFromWarehouse());
+    }).catchError((error) {
+      emit(ErrorGetMedicineFromWarehouse(error.toString()));
+    });
+  }
 
+  List<String> medicineCat = [
+    'All',
+    'Syrups',
+    'Pills',
+    'Injections',
+    'Ointments',
+  ];
+
+  int catIndex = 0;
+
+  void changeCatIndex({required int catIndex,required int warehouseId}) {
+    this.catIndex = catIndex;
+    if(catIndex==0){
+      getMedicineFromWarehouse(warehouseId);
+    }
+    else{
+      getCatMedicineFromWarehouse(catIndex: catIndex,warehouseId: warehouseId);
+    }
+    emit(ChangeCatIndexState());
+  }
+  void getCatMedicineFromWarehouse({required int warehouseId,required int catIndex}) {
+    medicineModelList = [];
+    emit(LoadingGetCatMedicineFromWarehouse());
+    ApiServes.get(url: '${EndPoint.getCatMedicineFromWarehouse}/$catIndex/$warehouseId',token: token)
+        .then((response) {
+            for (Map<String, dynamic> items in response.data) {
+              medicineModelList.add(MedicineModel.fromJson(items));
+            }
+            emit(SuccessGetCatMedicineFromWarehouse());
+          })
+        .catchError((error) {
+          print(error.toString());
+          emit(ErrorGetCatMedicineFromWarehouse(error.toString()));
     });
   }
 }

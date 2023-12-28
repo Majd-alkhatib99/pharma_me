@@ -36,7 +36,7 @@ class ItemBuilder extends StatelessWidget {
               // todo: implement navigator
               cubit.getMedicineFromWarehouse(index);
               // GoRouter.of(context).push('/MedicineScreen');
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicineScreen(appBarTitle: cubit.warehouseModel[index].name!,medicineModelList: cubit.medicineModelList,)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicineScreen(appBarTitle: cubit.warehouseModel[index].name!,medicineModelList: cubit.medicineModelList,warehouseId: cubit.warehouseModel[index].id!)));
             },
             child: Row(
               children: [

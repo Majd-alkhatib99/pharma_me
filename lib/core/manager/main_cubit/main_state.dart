@@ -20,3 +20,12 @@ class ErrorGetMedicineFromWarehouse extends MainState{
   final String errorMessage;
   ErrorGetMedicineFromWarehouse(this.errorMessage);
 }
+
+class ChangeCatIndexState extends MainState{}
+
+class LoadingGetCatMedicineFromWarehouse extends MainState{}
+class SuccessGetCatMedicineFromWarehouse extends MainState{}
+class ErrorGetCatMedicineFromWarehouse extends MainState{
+  final String errorMessage;
+  ErrorGetCatMedicineFromWarehouse(this.errorMessage);
+}
