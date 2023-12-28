@@ -42,7 +42,7 @@ class MedicineItemBuilder extends StatelessWidget {
                     backgroundColor: ColorData.black.withOpacity(0.2),
                     child: Image(
                       image: AssetImage(
-                        medicineModel.category!.image!=null?'assets/images/${medicineModel.category!.image}':'assets/images/categories/injections.jpg',
+                        medicineModel.category!=null?'assets/images/${medicineModel.category!.image}':'assets/images/categories/injections.jpg',
                       ),
                       width: MediaQuery.of(context).size.width * .060,
                     )),
@@ -61,7 +61,7 @@ class MedicineItemBuilder extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(
-                        text: medicineModel.category!.catName!,
+                        text: medicineModel.category!=null?medicineModel.category!.catName!:'mmmmm',
                         color: ColorData.black.withOpacity(0.6)),
                     CustomText(
                         text: medicineModel.quantity.toString(),

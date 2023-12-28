@@ -34,7 +34,7 @@ class ItemBuilder extends StatelessWidget {
           child: InkWell(
             onTap: (){
               // todo: implement navigator
-              cubit.getMedicineFromWarehouse(index);
+              cubit.getMedicineFromWarehouse(warehouseId: index);
               // GoRouter.of(context).push('/MedicineScreen');
               Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicineScreen(appBarTitle: cubit.warehouseModel[index].name!,medicineModelList: cubit.medicineModelList,warehouseId: cubit.warehouseModel[index].id!)));
             },

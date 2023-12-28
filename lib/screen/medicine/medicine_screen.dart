@@ -31,6 +31,7 @@ class MedicineScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
+                      cubit.getWarehouses();
                       Navigator.pop(context);
                     },
                     child: const Icon(Icons.arrow_back_ios),
@@ -53,7 +54,7 @@ class MedicineScreen extends StatelessWidget {
                 : medicineModelList.isEmpty
                     ? const Center(
                         child: CustomText(
-                          text: 'is empty',
+                          text: 'There are no medications in this warehouse',
                           alignment: Alignment.center,
                         ),
                       )
