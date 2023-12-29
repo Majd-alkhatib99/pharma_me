@@ -46,7 +46,7 @@ class _SplashViewBodyState extends State<SplashScreen> {
   void navigateToNextScreen() {
     String? token = CacheServes.getData(key: 'token');
     Future.delayed(
-      const Duration(seconds:1),
+      const Duration(seconds:4),
       () {
         GoRouter.of(context).pushReplacement(
           token==null? '/LoginScreen' : '/HomeScreen',
