@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
+import 'package:pharma_me/core/widgets/custom_loading.dart';
 import 'package:pharma_me/screen/home/layout/warehouse_layout/widgets/list_view_builder.dart';
 
 class WarehouseLayout extends StatelessWidget {
@@ -15,7 +17,7 @@ class WarehouseLayout extends StatelessWidget {
         builder: (context, state) {
           MainCubit cubit = MainCubit.get(context);
           return state is LoadingGetWarehouseState
-              ? const Center(child: CircularProgressIndicator(),)
+              ? const CustomLoading()
               : ListViewBuilder(cubit: cubit,);
         },
     );

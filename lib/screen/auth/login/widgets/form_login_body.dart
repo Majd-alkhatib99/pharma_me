@@ -18,7 +18,7 @@ class FormLoginBody extends StatelessWidget {
       child: Column(
         children: [
           CustomTextFormField(
-            enabled: state is LoadingLoginState? false:true,
+            enabled: state is LoadingLoginState ? false : true,
             textColor: ConvertThemeMode.convertText(cubit.isDarkMode),
             primeColor: ConvertThemeMode.convertPrimeColor(cubit.isDarkMode),
             text: 'Phone Number',
@@ -42,7 +42,7 @@ class FormLoginBody extends StatelessWidget {
             height: 40,
           ),
           CustomTextFormField(
-            enabled: state is LoadingLoginState? false:true,
+            enabled: state is LoadingLoginState ? false : true,
             textColor: ConvertThemeMode.convertText(cubit.isDarkMode),
             primeColor: ConvertThemeMode.convertPrimeColor(cubit.isDarkMode),
             text: 'Password',
@@ -60,6 +60,13 @@ class FormLoginBody extends StatelessWidget {
             ),
             onSave: (value) {
               //controller.password = value;
+            },
+            onFieldSubmitted: (value) {
+              if (cubit.formLoginKey.currentState!.validate()) {
+                cubit.loginUser(
+                    loginName: cubit.phoneController.text,
+                    password: cubit.passwordController.text);
+              }
             },
             validator: (value) {
               if (value!.isEmpty) {

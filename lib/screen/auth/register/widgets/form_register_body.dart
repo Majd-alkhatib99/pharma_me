@@ -100,6 +100,15 @@ class FormRegisterBody extends StatelessWidget {
             onSave: (value) {
               //controller.password = value;
             },
+            onFieldSubmitted: (value){
+              if (cubit.formRegisterKey.currentState!.validate()) {
+                cubit.registerUser(
+                    name: cubit.nameRegisterController.text,
+                    email: cubit.emailRegisterController.text,
+                    phone: cubit.phoneRegisterController.text,
+                    password: cubit.passwordRegisterController.text);
+              }
+            },
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Pleas enter your password';

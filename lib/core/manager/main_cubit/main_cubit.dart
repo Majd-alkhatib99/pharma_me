@@ -23,7 +23,7 @@ class MainCubit extends Cubit<MainState> {
     const OrderLayout()
   ];
   List<String> appBarTitle = [
-    'Warehouse',
+    'Warehouses',
     'Categories',
     'My Orders',
   ];

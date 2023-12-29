@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
 import 'package:pharma_me/core/models/medicine_model.dart';
+import 'package:pharma_me/core/widgets/custom_loading.dart';
 import 'package:pharma_me/core/widgets/custom_text.dart';
 import 'widgets/medicine_list_items_builder.dart';
 
@@ -48,9 +49,7 @@ class MedicineScreen extends StatelessWidget {
               ),
             ),
             body: state is LoadingGetMedicineFromWarehouse
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? const CustomLoading()
                 : medicineModelList.isEmpty
                     ? const Center(
                         child: CustomText(

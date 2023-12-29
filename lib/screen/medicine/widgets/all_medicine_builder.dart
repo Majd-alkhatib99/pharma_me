@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
+import 'package:pharma_me/core/widgets/custom_loading.dart';
 import 'package:pharma_me/screen/medicine/widgets/medicine_item_builder.dart';
 
 class AllMedicineBuilder extends StatelessWidget {
@@ -15,9 +16,7 @@ class AllMedicineBuilder extends StatelessWidget {
       flex: 12,
       child: state is LoadingGetCatMedicineFromWarehouse ||
           state is LoadingGetMedicineFromWarehouse
-          ? const Center(
-        child: CircularProgressIndicator(),
-      )
+          ? const CustomLoading()
           : GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
