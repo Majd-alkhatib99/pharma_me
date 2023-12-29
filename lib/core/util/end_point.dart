@@ -4,4 +4,5 @@ class EndPoint{
   static String getWarehouse ='getUsers';
   static String getMedicineFromWarehouse ='getMedicinesOwner';
   static String getCatMedicineFromWarehouse ='getCatOwner';
+  static String searchMedicines ='search';
 }

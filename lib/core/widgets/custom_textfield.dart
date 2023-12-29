@@ -16,6 +16,7 @@ class CustomTextFormField  extends StatelessWidget {
   final Color color;
   final Color primeColor;
   final bool enabled;
+  final void Function(String)? onChanged;
 
   const CustomTextFormField ({
     Key? key,
@@ -31,6 +32,7 @@ class CustomTextFormField  extends StatelessWidget {
     required this.onSave,
     required this.validator,
     this.enabled = true,
+    this.onChanged
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class CustomTextFormField  extends StatelessWidget {
           color: textColor,
         ),
         TextFormField(
+          onChanged: onChanged,
           enabled: enabled,
           obscureText: obscureText,
           controller: textEditingController,

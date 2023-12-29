@@ -29,3 +29,10 @@ class ErrorGetCatMedicineFromWarehouse extends MainState{
   final String errorMessage;
   ErrorGetCatMedicineFromWarehouse(this.errorMessage);
 }
+
+class LoadingSearchState extends MainState{}
+class SuccessSearchState extends MainState{}
+class ErrorSearchState extends MainState{
+  final String error;
+  ErrorSearchState(this.error);
+}
