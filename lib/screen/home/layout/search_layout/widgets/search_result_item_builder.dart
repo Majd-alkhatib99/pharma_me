@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:pharma_me/core/models/search_model.dart';
 import 'package:pharma_me/core/util/color_data.dart';
 import 'package:pharma_me/core/widgets/custom_text.dart';
@@ -58,10 +57,6 @@ class SearchResultItemBuilder extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // CustomText(
-                  //   text: 'name',
-                  //   color: Color(0xffDAF0EE),
-                  // ),
                   content(key: 'Scientific: ', value: searchModel.scName!),
                   content(
                       key: 'Trade: ',

@@ -1,9 +1,7 @@
-
 import 'package:go_router/go_router.dart';
 import 'package:pharma_me/screen/auth/login/login_screen.dart';
 import 'package:pharma_me/screen/auth/register/register_screen.dart';
 import 'package:pharma_me/screen/home/home_control.dart';
-import 'package:pharma_me/screen/medicine/medicine_screen.dart';
 
 import '../../screen/splash/splash_screen.dart';
 

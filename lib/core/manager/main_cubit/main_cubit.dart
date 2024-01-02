@@ -32,22 +32,23 @@ class MainCubit extends Cubit<MainState> {
   int bottomNavBarIndex = 0;
 
   void changeBottomNavBarIndex(int index) {
-    if(index == 0){
-      bottomNavBarIndex = index;
+    bottomNavBarIndex = index;
+    if(index==0){
       emit(ChangeBottomNavBarState());
       getWarehouses();
+
     }
     if(index == 1){
-      bottomNavBarIndex = index;
-      emit(ChangeBottomNavBarState());
+
       searchController.clear();
       searchModel.clear();
+      emit(ChangeBottomNavBarState());
     }
-    if(index == 2){
-      bottomNavBarIndex = index;
+    if(index==2){
       emit(ChangeBottomNavBarState());
       getOrders();
     }
+
 
   }
 
@@ -55,7 +56,7 @@ class MainCubit extends Cubit<MainState> {
   String? token = CacheServes.getData(key: 'token');
   List<WarehouseModel> warehouseModel = [];
 
-  void getWarehouses() {
+  Future<void> getWarehouses() async{
     warehouseModel = [];
     emit(LoadingGetWarehouseState());
     ApiServes.get(url: EndPoint.getWarehouse, token: token).then((response) {
@@ -99,7 +100,7 @@ class MainCubit extends Cubit<MainState> {
 
   List<MedicineModel> medicineModelList = [];
 
-  void getMedicineFromWarehouse({required int warehouseId}) {
+  Future<void> getMedicineFromWarehouse({required int warehouseId}) async{
     medicineModelList = [];
     checkBoxValue = [];
     emit(LoadingGetMedicineFromWarehouse());
@@ -160,7 +161,6 @@ class MainCubit extends Cubit<MainState> {
       for (Map<String, dynamic> items in response.data) {
         searchModel.add(SearchModel.fromJson(items));
       }
-      print(searchModel[0].scName);
       emit(SuccessSearchState());
     }).catchError((error) {
       emit(ErrorSearchState(error.toString()));
@@ -213,10 +213,8 @@ class MainCubit extends Cubit<MainState> {
         'qty':orders[i].qty,
       });
     }
-
-
-    print(order);
     emit(LoadingCreateOrderState());
+
     ApiServes.postData(
         url: '${EndPoint.createOrder}/$warehouseId',
         data: {
@@ -224,19 +222,15 @@ class MainCubit extends Cubit<MainState> {
         },
       token: token,
     ).then((response) {
-      print(response);
       emit(SuccessCreateOrderState(response['message']));
       order=[];
-
-
     }).catchError((error) {
-      print(error.toString());
       emit(ErrorCreateOrderState(error.toString()));
     });
 
   }
   List<OrdersModel> ordersModel=[];
-  void getOrders(){
+  Future<void> getOrders()async{
     ordersModel=[];
     emit(LoadingGetOrderState());
 

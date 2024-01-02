@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharma_me/core/manager/auth_cubit/auth_cubit.dart';
 import 'package:pharma_me/core/util/theme.dart';
 import 'package:pharma_me/core/widgets/custom_button.dart';
-import 'package:pharma_me/core/widgets/custom_textfield.dart';
+import 'package:pharma_me/core/widgets/custom_text_field.dart';
 
 class FormRegisterBody extends StatelessWidget {
   const FormRegisterBody({super.key, required this.cubit, required this.state});

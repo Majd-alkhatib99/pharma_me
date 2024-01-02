@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
-
 import 'item_builder.dart';
 
 class ListViewBuilder extends StatelessWidget {

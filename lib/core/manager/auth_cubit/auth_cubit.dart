@@ -55,7 +55,6 @@ class AuthCubit extends Cubit<AuthState> {
       phoneController.clear();
       passwordController.clear();
     }).onError((error, stackTrace) {
-      print(error);
       emit(ErrorLoginState(error.toString()));
     });
   }

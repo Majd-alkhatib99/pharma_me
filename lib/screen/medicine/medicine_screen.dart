@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
 import 'package:pharma_me/core/models/medicine_model.dart';
 import 'package:pharma_me/core/util/color_data.dart';
@@ -79,12 +80,15 @@ class MedicineScreen extends StatelessWidget {
                 alignment: Alignment.center,
               ),
             )
-                : MedicineListItemsBuilder(
-                    medicineModelList: medicineModelList,
-                    medicineCat: cubit.medicineCat,
-                    catIndex: cubit.catIndex,
-                    warehouseId: warehouseId,
-            ));
+                : LiquidPullToRefresh(
+              onRefresh:()=> cubit.getMedicineFromWarehouse(warehouseId: warehouseId),
+                  child: MedicineListItemsBuilder(
+                      medicineModelList: medicineModelList,
+                      medicineCat: cubit.medicineCat,
+                      catIndex: cubit.catIndex,
+                      warehouseId: warehouseId,
+                              ),
+                ));
       },
     );
   }
