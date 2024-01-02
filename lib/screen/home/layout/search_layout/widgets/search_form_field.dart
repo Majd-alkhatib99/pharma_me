@@ -10,18 +10,15 @@ class SearchFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: CustomTextFormField(
-          icon: const Icon(Icons.search),
-          onChanged: (String keyword) =>
-              cubit.searchMedicines(keyword: keyword),
-          textColor: ColorData.black,
-          textEditingController: cubit.searchController,
-          text: '',
-          hint: 'Search',
-          onSave: () {},
-          validator: (value) {return null;}),
-    );
+    return CustomTextFormField(
+        icon: const Icon(Icons.search),
+        onChanged: (String keyword) =>
+            cubit.searchMedicines(keyword: keyword),
+        textColor: ColorData.black,
+        textEditingController: cubit.searchController,
+        text: '',
+        hint: 'Search',
+        onSave: () {},
+        validator: (value) {return null;});
   }
 }

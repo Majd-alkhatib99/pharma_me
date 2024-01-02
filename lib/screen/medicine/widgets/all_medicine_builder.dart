@@ -27,6 +27,7 @@ class AllMedicineBuilder extends StatelessWidget {
             cubit.medicineModelList.length,
                 (index) => MedicineItemBuilder(
               medicineModel: cubit.medicineModelList[index],
+                  index: index,
             )),
       ),
     );

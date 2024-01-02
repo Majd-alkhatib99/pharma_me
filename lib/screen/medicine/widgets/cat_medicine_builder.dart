@@ -18,7 +18,7 @@ class CatMedicineBuilder extends StatelessWidget {
       child: state is LoadingGetCatMedicineFromWarehouse ||
           state is LoadingGetMedicineFromWarehouse
           ? const CustomLoading()
-          : cubit.medicineModelList2.isEmpty?const  Center(child: CustomText(text: 'There are no medications'),):GridView.count(
+          : cubit.medicineModelList2.isEmpty?const  Center(child: CustomText(text: 'There are no medications',alignment: Alignment.center,),):GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
         mainAxisSpacing: 10,
@@ -28,6 +28,8 @@ class CatMedicineBuilder extends StatelessWidget {
             cubit.medicineModelList2.length,
                 (index) => MedicineItemBuilder(
               medicineModel: cubit.medicineModelList2[index],
+                  index: index,
+
             )),
       ),
     );

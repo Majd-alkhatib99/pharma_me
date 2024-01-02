@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_me/core/models/medicine_model.dart';
+import 'package:pharma_me/core/models/order_model.dart';
+import 'package:pharma_me/core/models/orders_model.dart';
 import 'package:pharma_me/core/models/search_model.dart';
 import 'package:pharma_me/core/models/warehouses_model.dart';
 import 'package:pharma_me/core/util/api_serves.dart';
@@ -30,8 +32,23 @@ class MainCubit extends Cubit<MainState> {
   int bottomNavBarIndex = 0;
 
   void changeBottomNavBarIndex(int index) {
-    bottomNavBarIndex = index;
-    emit(ChangeBottomNavBarState());
+    if(index == 0){
+      bottomNavBarIndex = index;
+      emit(ChangeBottomNavBarState());
+      getWarehouses();
+    }
+    if(index == 1){
+      bottomNavBarIndex = index;
+      emit(ChangeBottomNavBarState());
+      searchController.clear();
+      searchModel.clear();
+    }
+    if(index == 2){
+      bottomNavBarIndex = index;
+      emit(ChangeBottomNavBarState());
+      getOrders();
+    }
+
   }
 
   bool isDarkMode = false;
@@ -61,18 +78,19 @@ class MainCubit extends Cubit<MainState> {
 
   List<String> catImage = [
     'categories/syrups.jpg',
-    'categories/Pills.jpg',
-    'categories/Injections.jpg',
-    'categories/Ointments.jpg',
+    'categories/pills.jpg',
+    'categories/injections.jpg',
+    'categories/ointments.jpg',
   ];
 
   int catIndex = 0;
 
   void changeCatIndex({required int catIndex, required int warehouseId}) {
     this.catIndex = catIndex;
+    orders = [];
     if (catIndex == 0) {
       emit(ChangeCatIndexState());
-      getMedicineFromWarehouse(warehouseId: warehouseId - 1);
+      getMedicineFromWarehouse(warehouseId: warehouseId);
     } else {
       emit(ChangeCatIndexState());
       getCatMedicineFromWarehouse(catIndex: catIndex, warehouseId: warehouseId);
@@ -83,13 +101,15 @@ class MainCubit extends Cubit<MainState> {
 
   void getMedicineFromWarehouse({required int warehouseId}) {
     medicineModelList = [];
+    checkBoxValue = [];
     emit(LoadingGetMedicineFromWarehouse());
     ApiServes.get(
-            url: '${EndPoint.getMedicineFromWarehouse}/${warehouseId + 1}',
+            url: '${EndPoint.getMedicineFromWarehouse}/$warehouseId',
             token: token)
         .then((response) {
       for (Map<String, dynamic> items in response.data) {
         medicineModelList.add(MedicineModel.fromJson(items));
+        checkBoxValue.add(false);
       }
       emit(SuccessGetMedicineFromWarehouse());
     }).catchError((error) {
@@ -102,6 +122,7 @@ class MainCubit extends Cubit<MainState> {
   void getCatMedicineFromWarehouse(
       {required int warehouseId, required int catIndex}) {
     medicineModelList2 = [];
+    checkBoxValue = [];
     emit(LoadingGetCatMedicineFromWarehouse());
     ApiServes.get(
             url:
@@ -110,6 +131,7 @@ class MainCubit extends Cubit<MainState> {
         .then((response) {
       for (Map<String, dynamic> items in response.data) {
         medicineModelList2.add(MedicineModel.fromJson(items));
+        checkBoxValue.add(false);
       }
       for (int i = 0; i < medicineModelList2.length; i++) {
         medicineModelList2[i].category = Category(
@@ -124,9 +146,10 @@ class MainCubit extends Cubit<MainState> {
   }
 
   TextEditingController searchController = TextEditingController();
-  List<SearchModel> searchModel =[];
+  List<SearchModel> searchModel = [];
+
   void searchMedicines({required String keyword}) {
-    searchModel =[];
+    searchModel = [];
     emit(LoadingSearchState());
 
     ApiServes.get(
@@ -134,13 +157,111 @@ class MainCubit extends Cubit<MainState> {
             query: {'keyword': keyword},
             token: token)
         .then((response) {
-          for(Map<String,dynamic> items in response.data){
-            searchModel.add(SearchModel.fromJson(items));
-          }
-          print(searchModel[0].scName);
+      for (Map<String, dynamic> items in response.data) {
+        searchModel.add(SearchModel.fromJson(items));
+      }
+      print(searchModel[0].scName);
       emit(SuccessSearchState());
     }).catchError((error) {
       emit(ErrorSearchState(error.toString()));
+    });
+  }
+
+
+  List<OrderModel> orders = [];
+  List<bool> checkBoxValue = [];
+
+  void changeCheckBoxState(bool value, int index) {
+
+    checkBoxValue[index] = value;
+    if (value) {
+      orders.add(OrderModel(index, 0, medicineModelList[index].scName!));
+      itemsQuantity.add(1);
+    } else {
+      for (int i = 0; i < orders.length; i++) {
+        if (orders[i].medicineId == index) {
+          itemsQuantity.removeAt(i);
+          orders.removeAt(i);
+        }
+      }
+    }
+
+    emit(ChangeCheckBoxState());
+  }
+
+  GlobalKey<ScaffoldState> medicineScaffoldKey = GlobalKey<ScaffoldState>();
+  List<int> itemsQuantity = [];
+
+  void add(int index) {
+    itemsQuantity[index]++;
+    emit(ChangeQuantityState());
+  }
+
+  void sub(int index) {
+    if (itemsQuantity[index] > 1) {
+      itemsQuantity[index]--;
+    }
+    emit(ChangeQuantityState());
+  }
+
+  void submitOrder(int warehouseId) {
+    List<Map<String, dynamic>> order = [];
+    for (int i = 0; i < orders.length; i++) {
+      orders[i].qty = itemsQuantity[i];
+      order.add({
+        'medicine_id':orders[i].medicineId!+1,
+        'qty':orders[i].qty,
+      });
+    }
+
+
+    print(order);
+    emit(LoadingCreateOrderState());
+    ApiServes.postData(
+        url: '${EndPoint.createOrder}/$warehouseId',
+        data: {
+          'items':order,
+        },
+      token: token,
+    ).then((response) {
+      print(response);
+      emit(SuccessCreateOrderState(response['message']));
+      order=[];
+
+
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorCreateOrderState(error.toString()));
+    });
+
+  }
+  List<OrdersModel> ordersModel=[];
+  void getOrders(){
+    ordersModel=[];
+    emit(LoadingGetOrderState());
+
+    ApiServes.get(url: EndPoint.getOrders,token: token)
+        .then((response) {
+          for(Map<String, dynamic> item in response.data){
+            ordersModel.add(OrdersModel.fromJson(item));
+
+          }
+          for(int i =0;i<ordersModel.length;i++){
+            if(ordersModel[i].status=='Sent'){
+              ordersModel[i].image='assets/images/sent.json';
+            }
+            if(ordersModel[i].status=='Received'){
+              ordersModel[i].image='assets/images/received.json';
+            }
+            if(ordersModel[i].status=='Preparation'){
+              ordersModel[i].image='assets/images/preparation.json';
+            }
+          }
+          emit(SuccessGetOrderState());
+    })
+        .catchError((error){
+           emit(ErrorGetOrderState(error.toString()));
+
     });
   }
 }

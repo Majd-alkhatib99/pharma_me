@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
 import 'package:pharma_me/core/util/cache_serves.dart';
+import 'package:pharma_me/core/util/custom_function.dart';
 import 'package:pharma_me/core/widgets/custom_text.dart';
-import 'package:pharma_me/screen/auth/login/login_screen.dart';
 import 'widgets/home_bottom_nav_bar.dart';
 
 class HomeControl extends StatelessWidget {
@@ -27,7 +28,8 @@ class HomeControl extends StatelessWidget {
             actions: [
               IconButton(onPressed: (){
                 CacheServes.removeData(key: 'token').then((value) {
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LoginScreen()), (route) => false);
+        GoRouter.of(context).pushReplacement('/LoginScreen');
+        CustomFunction.showSnackBar(message: 'Good bye', context: context, mode: cubit.isDarkMode);
                 });
               }, icon: const Icon(Icons.logout))
             ],

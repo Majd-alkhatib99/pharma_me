@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pharma_me/core/manager/main_cubit/main_cubit.dart';
 import 'package:pharma_me/core/util/color_data.dart';
 import 'package:pharma_me/core/widgets/custom_text.dart';
@@ -34,7 +33,7 @@ class ItemBuilder extends StatelessWidget {
           child: InkWell(
             onTap: (){
               // todo: implement navigator
-              cubit.getMedicineFromWarehouse(warehouseId: index);
+              cubit.getMedicineFromWarehouse(warehouseId: cubit.warehouseModel[index].id!);
               // GoRouter.of(context).push('/MedicineScreen');
               Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicineScreen(appBarTitle: cubit.warehouseModel[index].name!,medicineModelList: cubit.medicineModelList,warehouseId: cubit.warehouseModel[index].id!)));
             },

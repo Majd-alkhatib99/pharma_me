@@ -52,8 +52,10 @@ class AuthCubit extends Cubit<AuthState> {
 
       userModel = UserModel.fromJson(response);
       emit(SuccessLoginState(userModel!));
+      phoneController.clear();
+      passwordController.clear();
     }).onError((error, stackTrace) {
-
+      print(error);
       emit(ErrorLoginState(error.toString()));
     });
   }
@@ -76,6 +78,10 @@ class AuthCubit extends Cubit<AuthState> {
       'password': password,
     }).then((response) {
       emit(SuccessRegisterState(message: response['message']));
+      nameRegisterController.clear();
+      phoneRegisterController.clear();
+      emailRegisterController.clear();
+      passwordRegisterController.clear();
     }).catchError((error) {
       emit(ErrorRegisterState(error.toString()));
     });

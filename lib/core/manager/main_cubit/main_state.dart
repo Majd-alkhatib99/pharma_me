@@ -36,3 +36,24 @@ class ErrorSearchState extends MainState{
   final String error;
   ErrorSearchState(this.error);
 }
+
+class ChangeCheckBoxState extends MainState{}
+
+class ChangeQuantityState extends MainState{}
+
+class LoadingCreateOrderState extends MainState{}
+class SuccessCreateOrderState extends MainState{
+  final String message;
+  SuccessCreateOrderState(this.message);
+}
+class ErrorCreateOrderState extends MainState{
+  final String error;
+  ErrorCreateOrderState(this.error);
+}
+
+class LoadingGetOrderState extends MainState{}
+class SuccessGetOrderState extends MainState{}
+class ErrorGetOrderState extends MainState{
+  final String error;
+  ErrorGetOrderState(this.error);
+}
