@@ -111,6 +111,7 @@ class MainCubit extends Cubit<MainState> {
       for (Map<String, dynamic> items in response.data) {
         medicineModelList.add(MedicineModel.fromJson(items));
         checkBoxValue.add(false);
+        print(items['id']);
       }
       emit(SuccessGetMedicineFromWarehouse());
     }).catchError((error) {
@@ -170,15 +171,15 @@ class MainCubit extends Cubit<MainState> {
   List<OrderModel> orders = [];
   List<bool> checkBoxValue = [];
 
-  void changeCheckBoxState(bool value, int index) {
+  void changeCheckBoxState({required bool value,required int index,required int medicineId}) {
 
     checkBoxValue[index] = value;
     if (value) {
-      orders.add(OrderModel(index, 0, medicineModelList[index].scName!));
+      orders.add(OrderModel(medicineId, 0, medicineModelList[index].scName!));
       itemsQuantity.add(1);
     } else {
       for (int i = 0; i < orders.length; i++) {
-        if (orders[i].medicineId == index) {
+        if (orders[i].medicineId == medicineId) {
           itemsQuantity.removeAt(i);
           orders.removeAt(i);
         }
@@ -208,12 +209,13 @@ class MainCubit extends Cubit<MainState> {
     for (int i = 0; i < orders.length; i++) {
       orders[i].qty = itemsQuantity[i];
       order.add({
-        'medicine_id':orders[i].medicineId!+1,
+        'medicine_id':orders[i].medicineId!,
         'qty':orders[i].qty,
       });
     }
     emit(LoadingCreateOrderState());
-
+    print(order);
+    print(warehouseId);
     ApiServes.postData(
         url: '${EndPoint.createOrder}/$warehouseId',
         data: {
@@ -221,9 +223,11 @@ class MainCubit extends Cubit<MainState> {
         },
       token: token,
     ).then((response) {
+      print(warehouseId);
       emit(SuccessCreateOrderState(response['message']));
       order=[];
-    }).catchError((error) {
+    }).catchError((error) {print(error);
+    print(warehouseId);
       emit(ErrorCreateOrderState(error.toString()));
     });
 

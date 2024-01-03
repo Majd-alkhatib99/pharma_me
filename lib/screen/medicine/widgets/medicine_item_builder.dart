@@ -93,7 +93,7 @@ class MedicineItemBuilder extends StatelessWidget {
                   ? Checkbox(
                       value: cubit.checkBoxValue[index],
                       onChanged: (value) =>
-                          cubit.changeCheckBoxState(value!, index),
+                          cubit.changeCheckBoxState(value: value!,index: index,medicineId:  medicineModel.id!),
                     )
                   : const SizedBox(),
             ],
