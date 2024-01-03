@@ -64,4 +64,19 @@ class ApiServes {
     );
   }
 
+  static Future<Response> post({
+    required String url,
+    Map<String,dynamic>? query,
+    String? token,
+  })async
+  {
+    dio!.options.headers={
+      'Authorization':'Bearer $token',
+    };
+    return await dio!.post(
+        url,
+        queryParameters: query
+    );
+  }
+
 }

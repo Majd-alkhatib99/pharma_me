@@ -10,7 +10,8 @@ class SearchModel {
   int? userId;
   String? createdAt;
   String? updatedAt;
-  String? category;
+  Cat? category;
+  User? user;
 
   SearchModel(
       {this.id,
@@ -24,7 +25,8 @@ class SearchModel {
         this.userId,
         this.createdAt,
         this.updatedAt,
-        this.category});
+        this.category,
+        this.user});
 
   SearchModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,7 +40,37 @@ class SearchModel {
     userId = json['user_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    category = json['category'];
+    category = json['category'] != null
+        ? Cat.fromJson(json['category'])
+        : null;
+    user = json['user'] != null ?  User.fromJson(json['user']) : null;
   }
 
+}
+
+class Cat {
+  int? id;
+  String? catName;
+  String? image;
+
+  Cat({this.id, this.catName, this.image});
+
+  Cat.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    catName = json['catName'];
+    image = json['image'];
+  }
+
+}
+
+class User {
+  int? id;
+  String? name;
+
+  User({this.id, this.name});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
 }

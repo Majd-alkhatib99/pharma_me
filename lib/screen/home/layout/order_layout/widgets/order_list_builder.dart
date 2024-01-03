@@ -18,6 +18,7 @@ class OrderListBuilder extends StatelessWidget {
     return LiquidPullToRefresh(
       onRefresh: ()=>cubit.getOrders(),
       color: ColorData.midPurple2,
+      showChildOpacityTransition: false,
       child: ListView.builder(
         itemBuilder: (context, index) =>
             OrderItemBuilder(orderModel: ordersModel[index], cubit: cubit),

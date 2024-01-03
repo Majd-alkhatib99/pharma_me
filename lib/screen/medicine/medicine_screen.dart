@@ -82,6 +82,8 @@ class MedicineScreen extends StatelessWidget {
             )
                 : LiquidPullToRefresh(
               onRefresh:()=> cubit.getMedicineFromWarehouse(warehouseId: warehouseId),
+                  color: ColorData.midPurple2,
+                  showChildOpacityTransition: false,
                   child: MedicineListItemsBuilder(
                       medicineModelList: medicineModelList,
                       medicineCat: cubit.medicineCat,

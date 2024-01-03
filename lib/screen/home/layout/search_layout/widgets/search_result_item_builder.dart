@@ -23,24 +23,28 @@ class SearchResultItemBuilder extends StatelessWidget {
                     bottomLeft: Radius.circular(50.0))),
             width: double.infinity,
             height: 100,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/categories/${searchModel.category}.jpg',
-                  color: ColorData.midPurple2,
-                ),
-                CustomText(
-                  text: searchModel.trName!,
-                  alignment: Alignment.center,
-                ),
-                CustomText(
-                  text: searchModel.quantity!.toString(),
-                  alignment: Alignment.center,
-                  color: ColorData.grey,
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/${searchModel.category!.image}',
+                    color: ColorData.midPurple2,
+                    width: 40.0,
+                  ),
+                  CustomText(
+                    text: searchModel.trName!,
+                    alignment: Alignment.center,
+                  ),
+                  CustomText(
+                    text: searchModel.quantity!.toString(),
+                    alignment: Alignment.center,
+                    color: ColorData.grey,
+                  ),
+                ],
+              ),
             ),
           )),
           Expanded(

@@ -152,13 +152,12 @@ class MainCubit extends Cubit<MainState> {
   void searchMedicines({required String keyword}) {
     searchModel = [];
     emit(LoadingSearchState());
-
-    ApiServes.get(
+    ApiServes.post(
             url: EndPoint.searchMedicines,
             query: {'keyword': keyword},
             token: token)
         .then((response) {
-      for (Map<String, dynamic> items in response.data) {
+      for (Map<String,dynamic> items in response.data) {
         searchModel.add(SearchModel.fromJson(items));
       }
       emit(SuccessSearchState());
