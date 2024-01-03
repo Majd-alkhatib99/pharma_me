@@ -26,7 +26,7 @@ class MainCubit extends Cubit<MainState> {
   ];
   List<String> appBarTitle = [
     'Warehouses',
-    'Categories',
+    'Search',
     'My Orders',
   ];
   int bottomNavBarIndex = 0;
