@@ -7,6 +7,7 @@ class OrdersModel {
   String? createdAt;
   String? updatedAt;
   String? image;
+  int? totalPrice;
 
   OrdersModel(
       {this.id,
@@ -15,7 +16,8 @@ class OrdersModel {
         this.status,
         this.paymentStatus,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.totalPrice});
 
   OrdersModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -25,6 +27,7 @@ class OrdersModel {
     paymentStatus = json['paymentStatus'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    totalPrice = json['totalPrice'];
   }
 
 }

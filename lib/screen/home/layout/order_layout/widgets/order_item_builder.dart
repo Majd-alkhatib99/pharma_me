@@ -67,6 +67,18 @@ class OrderItemBuilder extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    const CustomText(text: 'Total price:'),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    CustomText(
+                      text: orderModel.totalPrice!.toString(),
+                      color: ColorData.grey,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
                     const CustomText(text: 'Status:'),
                     const SizedBox(
                       width: 5.0,
